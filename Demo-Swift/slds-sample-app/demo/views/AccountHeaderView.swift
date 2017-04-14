@@ -27,6 +27,7 @@ class AccountHeaderView: UIView {
     override init (frame : CGRect) {
         super.init(frame : frame)
         self.makeLayout()
+        self.updateTheme()
     }
     
     //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
@@ -44,27 +45,30 @@ class AccountHeaderView: UIView {
     //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
     
     func makeLayout() {
-        self.backgroundColor = UIColor.sldsBackgroundColor(.colorBackground)
         
-        
-        headerIcon = UIImageView(image: UIImage.sldsStandardIcon(.account,
-                                                                 withSize: SLDSSquareIconMedium))
         self.addSubview(headerIcon)
-        
         self.constrainChild(headerIcon,
                             xAlignment: .left,
                             yAlignment: .top,
                             xOffset: 10,
                             yOffset: 10)
         
-        headerTitle = UILabel()
-        headerTitle.font = UIFont.sldsFont(.regular, with: .large)
-        
-        headerTitle.textColor = UIColor.sldsTextColor(.colorTextDefault)
-        
         self.addSubview(headerTitle)
         headerTitle.constrainRightOf(headerIcon,
                                      yAlignment: .top,
                                      xOffset: 15)
+    }
+    
+    //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+    override func updateTheme(){
+        super.updateTheme()
+        let theme = ApplicationModel.sharedInstance.theme
+        
+        if let style = theme["accountHeaderStyle"] {
+            self.backgroundColor = style["backgroundColor"] as! UIColor
+            headerIcon.image = style["icon"] as! UIImage
+            headerTitle.textColor = style["color"] as! UIColor
+            headerTitle.font = style["font"] as! UIFont
+        }
     }
 }

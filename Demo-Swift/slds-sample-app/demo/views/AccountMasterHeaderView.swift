@@ -5,6 +5,7 @@ import UIKit
 
 class AccountMasterHeaderView: AccountHeaderView {
     
+    var isLightning = false
     var headerSubText = UILabel()
     var headerDownArrow = UIImageView()
     
@@ -14,22 +15,45 @@ class AccountMasterHeaderView: AccountHeaderView {
         super.makeLayout()
         headerTitle.text = "My Accounts"
         
-        headerDownArrow = UIImageView(image: UIImage.sldsUtilityIcon(.chevrondown, withSize: SLDSSquareIconUtilitySmall))
-        
         self.addSubview(headerDownArrow)
-        headerDownArrow.constrainRightOf(self.headerTitle,
-                                         yAlignment: .center,
-                                         xOffset: 15,
-                                         yOffset: 2)
+        self.constrainChild(headerDownArrow, xAlignment: .center, yAlignment: .center, xOffset : 0, yOffset : 0)
         
         headerSubText = UILabel()
         headerSubText.text = "5 items, sorted by Account Name"
-        headerSubText.font = UIFont.sldsFont(.regular, with: .small)
-        headerSubText.textColor = UIColor.sldsTextColor(.colorTextDefault)
         
         self.addSubview(headerSubText)
         headerSubText.constrainBelow(self.headerTitle,
                                      xAlignment: .left,
                                      yOffset: 2)
+        
+        let tap = UITapGestureRecognizer.init(target: self, action: #selector(self.handleTap))
+        self.addGestureRecognizer(tap)
+        self.updateTheme()
+    }
+    
+    //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+    
+    func handleTap(){
+        if isLightning {
+            isLightning = false
+            ApplicationModel.sharedInstance.theme = Theme.sharedInstance.salesforceTheme
+        }
+        else {
+            isLightning = true
+            ApplicationModel.sharedInstance.theme = Theme.sharedInstance.lightningTheme
+        }
+    }
+    
+    //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+    
+    override func updateTheme() {
+        super.updateTheme()
+        let theme = ApplicationModel.sharedInstance.theme
+        
+        if let style = theme["mainHeaderStyle"] {
+            headerSubText.textColor = style["color"] as! UIColor
+            headerSubText.font = style["font"] as! UIFont
+            headerDownArrow.image = style["icon"] as! UIImage
+        }
     }
 }

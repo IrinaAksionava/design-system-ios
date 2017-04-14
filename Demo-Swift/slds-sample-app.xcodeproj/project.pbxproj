@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		200B16A31E49310B00BA11A0 /* libSalesforceDesignSystemNames.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 200B169E1E49301500BA11A0 /* libSalesforceDesignSystemNames.a */; };
 		202532461E2EB2E4009F32A7 /* CustomFont.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 202532451E2EB2E4009F32A7 /* CustomFont.bundle */; };
+		203CF43A1EA0296600D8AB9A /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 203CF4391EA0296600D8AB9A /* Theme.swift */; };
+		203CF43C1EA0457F00D8AB9A /* UIView+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 203CF43B1EA0457F00D8AB9A /* UIView+Theme.swift */; };
 		206634CC1E25B6FE005B9381 /* libSalesforceDesignSystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC7F2E371DF2037E0011684A /* libSalesforceDesignSystem.a */; };
 		208C0C6A1E689D0100E12085 /* SalesforceDesignSystem.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 208C0C691E689D0100E12085 /* SalesforceDesignSystem.bundle */; };
 		20F03F531E00D938001EE121 /* AccountDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F03F4F1E00D938001EE121 /* AccountDetailViewController.swift */; };
@@ -90,6 +92,8 @@
 
 /* Begin PBXFileReference section */
 		202532451E2EB2E4009F32A7 /* CustomFont.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CustomFont.bundle; sourceTree = "<group>"; };
+		203CF4391EA0296600D8AB9A /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Theme.swift; path = demo/themes/Theme.swift; sourceTree = "<group>"; };
+		203CF43B1EA0457F00D8AB9A /* UIView+Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Theme.swift"; path = "demo/themes/UIView+Theme.swift"; sourceTree = "<group>"; };
 		208C0C691E689D0100E12085 /* SalesforceDesignSystem.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SalesforceDesignSystem.bundle; sourceTree = "<group>"; };
 		20F03F4F1E00D938001EE121 /* AccountDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountDetailViewController.swift; path = demo/controllers/AccountDetailViewController.swift; sourceTree = "<group>"; };
 		20F03F501E00D938001EE121 /* AccountMasterListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountMasterListViewController.swift; path = demo/controllers/AccountMasterListViewController.swift; sourceTree = "<group>"; };
@@ -153,6 +157,15 @@
 				202532451E2EB2E4009F32A7 /* CustomFont.bundle */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		203CF4381EA0294D00D8AB9A /* themes */ = {
+			isa = PBXGroup;
+			children = (
+				203CF4391EA0296600D8AB9A /* Theme.swift */,
+				203CF43B1EA0457F00D8AB9A /* UIView+Theme.swift */,
+			);
+			name = themes;
 			sourceTree = "<group>";
 		};
 		2043E3A71DF098E80043A192 /* controls */ = {
@@ -270,6 +283,7 @@
 		FCD342731DFF5DE00030B3B8 /* demo */ = {
 			isa = PBXGroup;
 			children = (
+				203CF4381EA0294D00D8AB9A /* themes */,
 				FCD342741DFF5E0D0030B3B8 /* controllers */,
 				FCD342751DFF5E1F0030B3B8 /* controls */,
 				FCD342761DFF5E690030B3B8 /* views */,
@@ -439,7 +453,9 @@
 				20F03F531E00D938001EE121 /* AccountDetailViewController.swift in Sources */,
 				20F03F6E1E00D980001EE121 /* FontViewController.swift in Sources */,
 				20F03F701E00D980001EE121 /* IconViewController.swift in Sources */,
+				203CF43A1EA0296600D8AB9A /* Theme.swift in Sources */,
 				FCB47EA91DD0FCDB00BB6C1B /* AppDelegate.swift in Sources */,
+				203CF43C1EA0457F00D8AB9A /* UIView+Theme.swift in Sources */,
 				20F03F6D1E00D980001EE121 /* FontListViewController.swift in Sources */,
 				20F03F541E00D938001EE121 /* AccountMasterListViewController.swift in Sources */,
 				20F03F801E00D994001EE121 /* ApplicationModel.swift in Sources */,

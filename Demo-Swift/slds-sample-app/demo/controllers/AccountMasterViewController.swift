@@ -48,6 +48,9 @@ class AccountMasterViewController: UIViewController {
         
         self.view.backgroundColor = UIColor.white
         styleNavigationBar()
+        updateTheme()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.updateTheme), name: ApplicationModel.themeChanged, object: nil)
     }
     
     //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
@@ -62,18 +65,34 @@ class AccountMasterViewController: UIViewController {
         newBackButton.accessibilityTraits = UIAccessibilityTraitButton
         newBackButton.accessibilityLabel = "back button"
         navigationItem.leftBarButtonItem = newBackButton
-        self.navigationController?.navigationBar.barTintColor = UIColor.sldsBackgroundColor(.colorBrand)
-        self.navigationController?.navigationBar.tintColor = UIColor.white
+        //self.navigationController?.navigationBar.barTintColor = UIColor.sldsBackgroundColor(.colorBrand)
+        //self.navigationController?.navigationBar.tintColor = UIColor.white
         
-        self.navigationController?.navigationBar.backIndicatorImage = UIImage.sldsUtilityIcon(.chevronleft,
-                                                                                              withSize: SLDSSquareIconUtilityMedium).withAlignmentRectInsets(UIEdgeInsetsMake(0, 0, -1, 0))
+        //self.navigationController?.navigationBar.backIndicatorImage = UIImage.sldsUtilityIcon(.chevronleft,
+         //                                                                                     withSize: SLDSSquareIconUtilityMedium).withAlignmentRectInsets(UIEdgeInsetsMake(0, 0, -1, 0))
         
-        self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage.sldsUtilityIcon(.chevronleft,
-                                                                                                            withSize: SLDSSquareIconUtilityMedium).withAlignmentRectInsets(UIEdgeInsetsMake(0, 0, -1, 0))
+        //self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage.sldsUtilityIcon(.chevronleft,
+        //                                                                                                    withSize: SLDSSquareIconUtilityMedium).withAlignmentRectInsets(UIEdgeInsetsMake(0, 0, -1, 0))
         
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white,
-                                                                        NSFontAttributeName: UIFont.sldsFont(.regular, with: .medium)]
+        //self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white,
+        //                                                                NSFontAttributeName: UIFont.sldsFont(.regular, with: .medium)]
         self.navigationItem.hidesBackButton = false
+    }
+    
+    //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+    
+    func updateTheme() {
+        
+        let theme = ApplicationModel.sharedInstance.theme
+        
+        if let style = theme["accountMasterController"] {
+            self.navigationController?.navigationBar.barTintColor = style["navBarTintColor"] as! UIColor
+            self.navigationController?.navigationBar.tintColor = style["navTintColor"] as! UIColor
+            self.navigationController?.navigationBar.backIndicatorImage = style["backIndicatorIcon"] as! UIImage
+            
+            self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = style["backIndicatorMaskIcon"] as! UIImage
+            self.navigationController?.navigationBar.titleTextAttributes = style["titleAttributes"] as! [String : Any]
+        }
     }
     
     //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––

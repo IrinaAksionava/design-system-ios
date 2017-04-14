@@ -24,6 +24,7 @@ class AccountDetailCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.makeLayout()
+        self.updateTheme()
     }
     
     //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
@@ -35,27 +36,33 @@ class AccountDetailCell: UITableViewCell {
     //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
     
     func makeLayout() {
-        
-        let font = UIFont.sldsFont(.regular, with: .medium)
-        let labelColor = UIColor.sldsTextColor(.colorTextActionLabel)
-        let valueColor = UIColor.sldsTextColor(.colorTextDefault)
-        
-        label.font = font
-        label.textColor = labelColor
         self.addSubview(label)
-        
-        value.font = font
-        value.textColor = valueColor
-        self.addSubview(value)
-        
         self.constrainChild(label,
                             xAlignment: .left,
                             yAlignment: .top,
                             xOffset: SLDSSpacingMedium,
                             yOffset: SLDSSpacingMedium)
         
+        self.addSubview(value)
         self.value.constrainBelow(label,
                                   xAlignment: .left,
                                   yOffset: 1)
+    }
+    
+    //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+    
+    override func updateTheme() {
+        super.updateTheme()
+        let theme = ApplicationModel.sharedInstance.theme
+        
+        if let style = theme["accountLabelStyle"] {
+            label.font = style["font"] as! UIFont
+            label.textColor = style["color"] as! UIColor
+        }
+        
+        if let style = theme["accountValueStyle"] {
+            value.font = style["font"] as! UIFont
+            value.textColor = style["color"] as! UIColor
+        }
     }
 }

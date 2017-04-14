@@ -29,17 +29,6 @@ class AccountDetailHeaderView: AccountHeaderView, ItemBarDelegate {
         
         tabBar.delegate = self
         
-        self.headerTitle.font = UIFont.sldsFont(.regular, with: .medium)
-        
-        accountType.font = UIFont.sldsFont(.regular, with: .small)
-        accountType.textColor = UIColor.sldsTextColor(.colorTextDefault)
-        
-        phoneNumber.font = UIFont.sldsFont(.regular, with: .small)
-        phoneNumber.textColor = UIColor.sldsTextColor(.colorTextLink)
-        
-        url.font = UIFont.sldsFont(.regular, with: .small)
-        url.textColor = UIColor.sldsTextColor(.colorTextLink)
-        
         self.addSubview(accountType)
         accountType.constrainBelow(self.headerTitle,
                                    xAlignment: .left,
@@ -60,9 +49,32 @@ class AccountDetailHeaderView: AccountHeaderView, ItemBarDelegate {
         tabBar.addTab(withLabelString: "related")
         
         tabBar.backgroundColor = UIColor.sldsBackgroundColor(.colorBackground)
-        
         self.addSubview(tabBar)
+        
+        self.updateTheme()
     }
+    
+    //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+    
+    override func updateTheme() {
+        super.updateTheme()
+        let theme = ApplicationModel.sharedInstance.theme
+        
+        if let style = theme["accountDetailHeaderStyle"] {
+            self.headerTitle.font = style["headerFont"] as! UIFont
+            
+            accountType.textColor = style["accountColor"] as! UIColor
+            accountType.font = style["bodyFont"] as! UIFont
+            
+            phoneNumber.textColor = style["linkColor"] as! UIColor
+            phoneNumber.font = style["bodyFont"] as! UIFont
+            
+            url.textColor = style["linkColor"] as! UIColor
+            url.font = style["bodyFont"] as! UIFont
+        }
+    }
+
+    //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
     
     override func layoutSubviews() {
         self.constrainChild(tabBar,
@@ -78,6 +90,5 @@ class AccountDetailHeaderView: AccountHeaderView, ItemBarDelegate {
     //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
     
     func itemBar(_ itemBar: ItemBar, didSelectItemAt index: NSInteger) {
-        
     }
 }

@@ -9,6 +9,13 @@ class ApplicationModel: NSObject {
     
     var showSwift : Bool = true
     
+    static var themeChanged = Notification.Name("themeChanged")
+    var theme = Theme.sharedInstance.salesforceTheme {
+        didSet{
+            NotificationCenter.default.post(Notification(name: ApplicationModel.themeChanged))
+        }
+    }
+    
     // MARK: Color data management
     //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
     

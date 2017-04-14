@@ -42,6 +42,7 @@ class AccountMasterCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.makeLayout()
+        self.updateTheme()
     }
     
     //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
@@ -71,49 +72,26 @@ class AccountMasterCell: UITableViewCell {
     //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
     
     func makeLayout() {
-        
-        let font = UIFont.sldsFont(.regular, with: .medium)
-        let labelColor = UIColor.sldsTextColor(.colorTextActionLabel)
-        let valueColor = UIColor.sldsTextColor(.colorTextDefault)
-        
-        accountName.font = font
-        accountName.textColor = valueColor
         self.addSubview(accountName)
         
-        stateLabel.font = font
-        stateLabel.textColor = labelColor
         stateLabel.text = "Billing State:"
         self.addSubview(stateLabel)
         
-        phoneLabel.font = font
-        phoneLabel.textColor = labelColor
         phoneLabel.text = "Phone:"
         self.addSubview(phoneLabel)
         
-        typeLabel.font = font
-        typeLabel.textColor = labelColor
         typeLabel.text = "Type:"
         self.addSubview(typeLabel)
         
         ownerLabel.text = "Owner:"
-        ownerLabel.font = font
-        ownerLabel.textColor = labelColor
         self.addSubview(ownerLabel)
         
-        stateValue.font = font
-        stateValue.textColor = valueColor
         self.addSubview(stateValue)
         
-        phoneValue.font = font
-        phoneValue.textColor = valueColor
         self.addSubview(phoneValue)
         
-        typeValue.font = font
-        typeValue.textColor = valueColor
         self.addSubview(typeValue)
         
-        ownerValue.font = font
-        ownerValue.textColor = valueColor
         self.addSubview(ownerValue)
         
         self.accessibilityElements = [accountName, stateValue, phoneValue, typeValue, ownerValue]
@@ -158,5 +136,44 @@ class AccountMasterCell: UITableViewCell {
                                       xAlignment: .left,
                                       yOffset: 1)
         
+    }
+    
+    //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+    
+    override func updateTheme() {
+        super.updateTheme()
+        
+        let theme = ApplicationModel.sharedInstance.theme
+        
+        if let style = theme["accountLabelStyle"] {
+            stateLabel.font = style["font"] as! UIFont
+            stateLabel.textColor = style["color"] as! UIColor
+            
+            phoneLabel.font = style["font"] as! UIFont
+            phoneLabel.textColor = style["color"] as! UIColor
+            
+            typeLabel.font = style["font"] as! UIFont
+            typeLabel.textColor = style["color"] as! UIColor
+            
+            ownerLabel.font = style["font"] as! UIFont
+            ownerLabel.textColor = style["color"] as! UIColor
+        }
+        
+        if let style = theme["accountValueStyle"] {
+            accountName.font = style["font"] as! UIFont
+            accountName.textColor = style["color"] as! UIColor
+            
+            stateValue.font = style["font"] as! UIFont
+            stateValue.textColor = style["color"] as! UIColor
+            
+            phoneValue.font = style["font"] as! UIFont
+            phoneValue.textColor = style["color"] as! UIColor
+            
+            typeValue.font = style["font"] as! UIFont
+            typeValue.textColor = style["color"] as! UIColor
+            
+            ownerValue.font = style["font"] as! UIFont
+            ownerValue.textColor = style["color"] as! UIColor
+        }
     }
 }
