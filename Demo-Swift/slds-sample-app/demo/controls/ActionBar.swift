@@ -33,6 +33,24 @@ class ActionBar: ItemBar {
     
     //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
     
+    override func loadView() {
+        super.loadView()
+        self.updateTheme()
+    }
+    
+    //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+    
+    override func updateTheme() {
+        super.updateTheme()
+        let theme = ApplicationModel.sharedInstance.theme
+        
+        if let style = theme["actionBarStyle"] {
+            self.backgroundColor = style["backgroundColor"] as! UIColor
+        }
+    }
+    
+    //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+    
     override func draw(_ rect: CGRect) {
         let aPath = UIBezierPath()
         

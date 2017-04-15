@@ -49,6 +49,7 @@ class DemoViewController: UIViewController, ItemBarDelegate, UINavigationControl
                                  height: actionBarHeight)
         
         self.view.backgroundColor = UIColor.white
+        NotificationCenter.default.addObserver(self, selector: #selector(self.updateActionBarButtons), name: ApplicationModel.themeChanged, object: nil)
     }
     
     //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
@@ -97,20 +98,45 @@ class DemoViewController: UIViewController, ItemBarDelegate, UINavigationControl
             ]
         }
         
+        self.updateActionBarButtons()
+    }
+    
+    //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+    
+    func updateActionBarButtons() {
+        let theme = ApplicationModel.sharedInstance.theme
+        
+        var size : CGFloat = 28.0
+        var bgColor = UIColor.black
+        
+        if let style = theme["actionBarButtonStyle"] {
+            size = style["size"] as! CGFloat
+            
+            if let iconBgColor = style["backgroundColor"] {
+                bgColor = iconBgColor as! UIColor
+            }
+        }
+        
         self.actionBar.hideActionBarButtons() {
             self.actionBar.removeItems()
-        
+            
             for item in self.actionItems {
                 
                 let button = ActionBarButton()
-                button.setImage(UIImage.sldsActionIcon(item.iconId, withSize: 28), for: .normal)
+                
+                if bgColor == UIColor.black {
+                   button.setImage(UIImage.sldsActionIcon(item.iconId, withSize: 28), for: .normal)
+                }
+                else
+                {
+                    button.setImage(UIImage.sldsActionIcon(item.iconId, with: UIColor.white, andBGColor: bgColor, andSize: size), for: .normal)
+                }
+                
                 button.setTitle(item.label, for: .normal)
                 self.actionBar.addActionBarButton(button)
             }
             self.actionBar.showActionBarButtons()
         }
+        
     }
-    
-    //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-
 }

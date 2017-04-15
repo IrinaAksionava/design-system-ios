@@ -43,6 +43,7 @@ class AccountMasterCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.makeLayout()
         self.updateTheme()
+        self.selectionStyle = .none
     }
     
     //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
@@ -56,19 +57,7 @@ class AccountMasterCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
     }
-    
-    //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-    
-    //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-    
-    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
-        super.setHighlighted(highlighted, animated: animated)
-    }
-    
+
     //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
     
     func makeLayout() {
@@ -145,6 +134,11 @@ class AccountMasterCell: UITableViewCell {
         
         let theme = ApplicationModel.sharedInstance.theme
         
+        if let style = theme["accountTitleStyle"] {
+            accountName.font = style["font"] as! UIFont
+            accountName.textColor = style["color"] as! UIColor
+        }
+        
         if let style = theme["accountLabelStyle"] {
             stateLabel.font = style["font"] as! UIFont
             stateLabel.textColor = style["color"] as! UIColor
@@ -160,8 +154,6 @@ class AccountMasterCell: UITableViewCell {
         }
         
         if let style = theme["accountValueStyle"] {
-            accountName.font = style["font"] as! UIFont
-            accountName.textColor = style["color"] as! UIColor
             
             stateValue.font = style["font"] as! UIFont
             stateValue.textColor = style["color"] as! UIColor

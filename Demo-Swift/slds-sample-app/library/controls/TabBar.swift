@@ -5,6 +5,7 @@ import UIKit
 
 class TabBar: ItemBar {
     
+    var underscoreColor : UIColor = UIColor.sldsFill(.brand)
     var underscore = UIView()
     
     override var selectedIndex: Int {
@@ -28,7 +29,7 @@ class TabBar: ItemBar {
         aPath.addLine(to: CGPoint(x:self.frame.width, y:self.frame.height))
         aPath.close()
         aPath.lineWidth = 2.0
-        UIColor.sldsTextColor(.colorTextLinkActive).set()
+        self.underscoreColor.set()
         aPath.stroke()
     }
     
@@ -37,7 +38,6 @@ class TabBar: ItemBar {
     override func loadView() {
         super.loadView()
         self.accessibilityTraits = UIAccessibilityTraitTabBar
-        self.underscore.backgroundColor = UIColor.sldsBorderColor(.colorBorderSelection)
         self.addSubview(self.underscore)
         
         self.constrainChild(self.underscore,
@@ -55,6 +55,8 @@ class TabBar: ItemBar {
             self.underscore.widthConstraint.constant = self.itemWidth
             self.moveUnderscore(self.selectedIndex, animated: false)
         }
+        
+        self.updateTheme()
     }
     
     //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
@@ -86,5 +88,20 @@ class TabBar: ItemBar {
         {
             self.layoutIfNeeded()
         }
+    }
+    
+    //––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+    
+    override func updateTheme() {
+        super.updateTheme()
+        
+        let theme = ApplicationModel.sharedInstance.theme
+        
+        if let style = theme["tabBarStyle"] {
+            self.underscoreColor = style["underscoreColor"] as! UIColor
+            self.underscore.backgroundColor = self.underscoreColor
+        }
+        
+        self.setNeedsDisplay()
     }
 }
